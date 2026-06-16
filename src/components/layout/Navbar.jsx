@@ -61,7 +61,7 @@ export default function Navbar() {
             : 'py-5'
         }`}
       >
-        <div className="max-w-7xl mx-auto px-6 md:px-12">
+        <div className="w-full max-w-7xl mx-auto px-6 md:px-12">
           <div
             className={`flex items-center justify-between transition-all duration-500 ${
               isScrolled

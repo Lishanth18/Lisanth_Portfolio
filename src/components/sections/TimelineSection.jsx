@@ -106,7 +106,7 @@ export default function TimelineSection() {
       {/* Background */}
       <div className="absolute inset-0 bg-mesh-premium opacity-50 pointer-events-none" />
 
-      <div className="max-w-5xl mx-auto px-6 md:px-12 relative">
+      <div className="w-full max-w-5xl mx-auto px-6 md:px-12 relative">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}

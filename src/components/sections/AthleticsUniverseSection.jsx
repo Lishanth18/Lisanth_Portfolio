@@ -156,7 +156,7 @@ export default function AthleticsUniverseSection() {
         <div className="w-full h-full bg-gradient-to-r from-transparent via-accent-amber to-transparent" />
       </div>
 
-      <div className="max-w-6xl mx-auto px-6 md:px-12 relative z-10">
+      <div className="w-full max-w-6xl mx-auto px-6 md:px-12 relative z-10">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}

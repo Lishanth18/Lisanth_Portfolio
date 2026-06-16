@@ -200,7 +200,7 @@ export default function ProjectsShowcase() {
     >
       <div className="absolute inset-0 bg-mesh-premium opacity-30 pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
+      <div className="w-full max-w-7xl mx-auto px-6 md:px-12 relative z-10">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
