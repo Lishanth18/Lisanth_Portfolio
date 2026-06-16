@@ -29,18 +29,12 @@ export default function HeroSection() {
 
     if (fadeIntervalRef.current) clearInterval(fadeIntervalRef.current)
 
-    // Mute at end of video loop
+    // Stop at end of video
+    video.pause()
+    video.currentTime = 0
     video.muted = true
     video.volume = 0
     setIsAudioEnabled(false)
-
-    // Ensure it continues looping
-    const playPromise = video.play()
-    if (playPromise !== undefined) {
-      playPromise.catch(error => {
-        console.error("Video play failed on loop:", error)
-      })
-    }
   }
 
   const handleToggleAudio = () => {
@@ -50,7 +44,8 @@ export default function HeroSection() {
     if (fadeIntervalRef.current) clearInterval(fadeIntervalRef.current)
 
     if (!isAudioEnabled) {
-      // Synchronously unmute and play within the user interaction context
+      // Start video from beginning and unmute
+      video.currentTime = 0
       video.muted = false
       video.volume = 0.1
       const playPromise = video.play()
@@ -74,6 +69,7 @@ export default function HeroSection() {
         vol = Math.max(vol - 0.1, 0)
         video.volume = vol
         if (vol <= 0) {
+          video.pause()
           video.muted = true
           clearInterval(fadeIntervalRef.current)
         }
@@ -96,7 +92,7 @@ export default function HeroSection() {
       >
         <video
           ref={videoRef}
-          autoPlay
+          preload="auto"
           muted
           playsInline
           onEnded={handleVideoEnded}
@@ -144,7 +140,7 @@ export default function HeroSection() {
             ))}
           </div>
           <span className="text-[11px] font-mono font-medium tracking-[0.2em] uppercase text-zinc-300 group-hover:text-white transition-colors">
-            {isAudioEnabled ? 'Sound On' : 'Enable Sound'}
+            {isAudioEnabled ? 'Stop Video' : 'Play Video'}
           </span>
         </motion.button>
       </div>
@@ -152,97 +148,99 @@ export default function HeroSection() {
       {/* Main Hero Content */}
       <motion.div
         style={{ y: textY, opacity: textOpacity }}
-        className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-12 text-center"
+        className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-12 text-left flex items-center h-full"
       >
-        {/* Availability badge */}
-        <motion.div
-          initial={{ opacity: 0, y: 20, filter: 'blur(10px)' }}
-          animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-          transition={{ duration: 1, delay: 0.3 }}
-          className="inline-flex items-center gap-3 px-6 py-2.5 rounded-full bg-white/5 backdrop-blur-md mb-8 border border-white/10 hover:bg-white/10 hover:border-white/20 transition-all duration-300 shadow-[0_0_30px_rgba(59,130,246,0.15)]"
-        >
-          <div className="w-2 h-2 rounded-full bg-accent-cyan animate-pulse shadow-[0_0_10px_rgba(6,182,212,0.8)]" />
-          <span className="text-zinc-300 font-mono tracking-widest text-[11px] uppercase font-medium">
-            Available for new opportunities
-          </span>
-        </motion.div>
-
-        {/* Greeting */}
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.5 }}
-          className="text-accent-cyan font-mono text-sm md:text-base tracking-[0.4em] uppercase mb-4"
-        >
-          Hi, I'm
-        </motion.p>
-
-        {/* Name */}
-        <motion.h1
-          initial={{ opacity: 0, y: 30, filter: 'blur(10px)' }}
-          animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-          transition={{ duration: 1.2, delay: 0.7, ease: [0.22, 1, 0.36, 1] }}
-          className="heading-display text-6xl sm:text-7xl md:text-8xl lg:text-[10rem] leading-none mb-4 font-black tracking-tight"
-        >
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-400 drop-shadow-2xl">Lisanth</span>
-        </motion.h1>
-
-        {/* Role */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 1.2 }}
-          className="mb-8"
-        >
-          <h2 className="font-display font-medium text-2xl sm:text-3xl md:text-4xl text-zinc-200 tracking-wide drop-shadow-md">
-            Full Stack Developer
-          </h2>
-        </motion.div>
-
-        {/* Typing subtitle */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.6 }}
-          className="mb-14 h-12 flex justify-center items-center"
-          onAnimationComplete={() => {
-            setTimeout(() => setShowSubtitle(true), 200)
-          }}
-        >
-          {showSubtitle && (
-            <p className="text-zinc-400 text-lg md:text-2xl font-light tracking-wide max-w-2xl mx-auto drop-shadow-sm">
-              <TypewriterText
-                text="Building Digital Experiences with Creativity & Intelligence"
-                speed={35}
-                onComplete={() => setTimeout(() => setShowCTA(true), 500)}
-              />
-            </p>
-          )}
-        </motion.div>
-
-        {/* CTA Buttons */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={showCTA ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8 }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-6"
-        >
-          <a href={`#${SECTIONS.PROJECTS}`} className="relative group px-8 py-4 rounded-full bg-white text-zinc-900 font-bold tracking-wide overflow-hidden transition-transform duration-300 hover:scale-105 active:scale-95 shadow-[0_0_40px_rgba(255,255,255,0.3)]">
-            <span className="relative z-10 flex items-center gap-2">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z" />
-              </svg>
-              View Projects
+        <div className="w-full md:w-3/5 lg:w-1/2">
+          {/* Availability badge */}
+          <motion.div
+            initial={{ opacity: 0, y: 20, filter: 'blur(10px)' }}
+            animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+            transition={{ duration: 1, delay: 0.3 }}
+            className="inline-flex items-center gap-3 px-6 py-2.5 rounded-full bg-white/5 backdrop-blur-md mb-8 border border-white/10 hover:bg-white/10 hover:border-white/20 transition-all duration-300 shadow-[0_0_30px_rgba(59,130,246,0.15)]"
+          >
+            <div className="w-2 h-2 rounded-full bg-accent-cyan animate-pulse shadow-[0_0_10px_rgba(6,182,212,0.8)]" />
+            <span className="text-zinc-300 font-mono tracking-widest text-[11px] uppercase font-medium">
+              Available for new opportunities
             </span>
-            <div className="absolute inset-0 bg-gradient-to-r from-blue-200 to-purple-200 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-          </a>
-          <a href={`#${SECTIONS.TIMELINE}`} className="group px-8 py-4 rounded-full border border-white/20 text-white font-semibold tracking-wide backdrop-blur-sm transition-all duration-300 hover:bg-white/10 hover:border-white/40 flex items-center gap-2 hover:scale-105 active:scale-95">
-            Explore Journey
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1">
-              <path d="M7 17l9.2-9.2M17 17V7H7" />
-            </svg>
-          </a>
-        </motion.div>
+          </motion.div>
+
+          {/* Greeting */}
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.5 }}
+            className="text-accent-cyan font-mono text-sm md:text-base tracking-[0.4em] uppercase mb-4"
+          >
+            Hi, I'm
+          </motion.p>
+
+          {/* Name */}
+          <motion.h1
+            initial={{ opacity: 0, y: 30, filter: 'blur(10px)' }}
+            animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+            transition={{ duration: 1.2, delay: 0.7, ease: [0.22, 1, 0.36, 1] }}
+            className="heading-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-[7rem] leading-none mb-4 font-black tracking-tight"
+          >
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-400 drop-shadow-2xl">Lisanth</span>
+          </motion.h1>
+
+          {/* Role */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 1.2 }}
+            className="mb-8"
+          >
+            <h2 className="font-display font-medium text-2xl sm:text-3xl md:text-4xl text-zinc-200 tracking-wide drop-shadow-md">
+              Full Stack Developer
+            </h2>
+          </motion.div>
+
+          {/* Typing subtitle */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.6 }}
+            className="mb-14 h-16 sm:h-12 flex justify-start items-center"
+            onAnimationComplete={() => {
+              setTimeout(() => setShowSubtitle(true), 200)
+            }}
+          >
+            {showSubtitle && (
+              <p className="text-zinc-400 text-lg md:text-xl font-light tracking-wide max-w-xl drop-shadow-sm">
+                <TypewriterText
+                  text="Building Digital Experiences with Creativity & Intelligence"
+                  speed={35}
+                  onComplete={() => setTimeout(() => setShowCTA(true), 500)}
+                />
+              </p>
+            )}
+          </motion.div>
+
+          {/* CTA Buttons */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={showCTA ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.8 }}
+            className="flex flex-col sm:flex-row items-start sm:items-center justify-start gap-6"
+          >
+            <a href={`#${SECTIONS.PROJECTS}`} className="relative group px-8 py-4 rounded-full bg-white text-zinc-900 font-bold tracking-wide overflow-hidden transition-transform duration-300 hover:scale-105 active:scale-95 shadow-[0_0_40px_rgba(255,255,255,0.3)]">
+              <span className="relative z-10 flex items-center gap-2">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z" />
+                </svg>
+                View Projects
+              </span>
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-200 to-purple-200 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            </a>
+            <a href={`#${SECTIONS.TIMELINE}`} className="group px-8 py-4 rounded-full border border-white/20 text-white font-semibold tracking-wide backdrop-blur-sm transition-all duration-300 hover:bg-white/10 hover:border-white/40 flex items-center gap-2 hover:scale-105 active:scale-95">
+              Explore Journey
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1">
+                <path d="M7 17l9.2-9.2M17 17V7H7" />
+              </svg>
+            </a>
+          </motion.div>
+        </div>
       </motion.div>
 
       {/* Scroll indicator */}

@@ -49,7 +49,7 @@ export function JourneyProvider({ children }) {
 
   const enterExperience = useCallback(() => {
     setHasEnteredExperience(true)
-    setIsAudioEnabled(true)
+    setIsAudioEnabled(false)
     setCurrentSection(SECTIONS.HERO)
   }, [])
 
