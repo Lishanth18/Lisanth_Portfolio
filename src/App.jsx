@@ -10,9 +10,7 @@ import LoadingScreen from './components/ui/LoadingScreen'
 import Navbar from './components/layout/Navbar'
 import HeroSection from './components/sections/HeroSection'
 import TimelineSection from './components/sections/TimelineSection'
-import DecisionSection from './components/sections/DecisionSection'
 import TechUniverseSection from './components/sections/TechUniverseSection'
-import AthleticsUniverseSection from './components/sections/AthleticsUniverseSection'
 import ProjectsShowcase from './components/sections/ProjectsSection'
 import AISection from './components/sections/AISection'
 import BlogSection from './components/sections/BlogSection'
@@ -54,7 +52,7 @@ function AppContent() {
         <title>Lisanth V | Full Stack Developer — The Journey of a Creator</title>
         <meta
           name="description"
-          content="A cinematic interactive portfolio by Lisanth V — Full Stack Developer balancing Technology and Athletics. Explore the journey of a creator."
+          content="A cinematic interactive portfolio by Lisanth V — Full Stack Developer. Explore the journey of a creator."
         />
       </Helmet>
 
@@ -81,14 +79,8 @@ function AppContent() {
             {/* Scene 3: Journey Timeline */}
             <TimelineSection />
 
-            {/* Scene 4: The Road Split */}
-            <DecisionSection />
-
             {/* Scene 5A: Tech Universe */}
             <TechUniverseSection />
-
-            {/* Scene 5B: Athletics Universe */}
-            <AthleticsUniverseSection />
 
             {/* Scene 6: Project Showcase */}
             <ProjectsShowcase />

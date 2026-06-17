@@ -6,9 +6,7 @@ export const SECTIONS = {
   LOADING: 'loading',
   HERO: 'hero',
   TIMELINE: 'timeline',
-  DECISION: 'decision',
   TECH: 'tech-universe',
-  ATHLETICS: 'athletics-universe',
   PROJECTS: 'projects',
   AI: 'ai-assistant',
   BLOG: 'blog',
@@ -20,15 +18,13 @@ export const SECTIONS = {
 export const NAV_SCENES = [
   { id: SECTIONS.HERO, label: 'Hero', number: 1 },
   { id: SECTIONS.TIMELINE, label: 'Journey', number: 2 },
-  { id: SECTIONS.DECISION, label: 'Paths', number: 3 },
-  { id: SECTIONS.TECH, label: 'Tech', number: 4 },
-  { id: SECTIONS.ATHLETICS, label: 'Athletics', number: 4 },
-  { id: SECTIONS.PROJECTS, label: 'Projects', number: 5 },
-  { id: SECTIONS.AI, label: 'AI', number: 6 },
-  { id: SECTIONS.BLOG, label: 'Blog', number: 7 },
-  { id: SECTIONS.RESUME, label: 'Resume', number: 8 },
-  { id: SECTIONS.FUTURE, label: 'Future', number: 9 },
-  { id: SECTIONS.CONTACT, label: 'Contact', number: 10 },
+  { id: SECTIONS.TECH, label: 'Tech', number: 3 },
+  { id: SECTIONS.PROJECTS, label: 'Projects', number: 4 },
+  { id: SECTIONS.AI, label: 'AI', number: 5 },
+  { id: SECTIONS.BLOG, label: 'Blog', number: 6 },
+  { id: SECTIONS.RESUME, label: 'Resume', number: 7 },
+  { id: SECTIONS.FUTURE, label: 'Future', number: 8 },
+  { id: SECTIONS.CONTACT, label: 'Contact', number: 9 },
 ]
 
 export function JourneyProvider({ children }) {

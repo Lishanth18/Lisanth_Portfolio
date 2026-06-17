@@ -7,28 +7,25 @@ const SUGGESTED_QUESTIONS = [
   'What projects has he built?',
   'What technologies does he know?',
   'Can I hire him?',
-  'Tell me about his athletics career',
   'What is his education background?',
 ]
 
 // Mock AI knowledge base
 const KNOWLEDGE_BASE = {
-  'who is lisanth': `I'm Lisanth V — a Full Stack Developer passionate about building digital experiences that merge creativity with technical excellence. I graduated from Nadar Saraswathi College of Engineering and Technology (2021-2025) with a GPA of 7.8 in Computer Science. Beyond coding, I'm a decorated athlete who swept 7 gold medals in a single athletics meet. I believe that the discipline from competitive sports translates directly into how I approach engineering — with precision, endurance, and a relentless drive to improve.`,
+  'who is lisanth': `I'm Lisanth V — a Full Stack Developer passionate about building digital experiences that merge creativity with technical excellence. I graduated from Nadar Saraswathi College of Engineering and Technology (2021-2025) with a GPA of 7.8 in Computer Science. I believe that the discipline and resilience translate directly into how I approach engineering — with precision, endurance, and a relentless drive to improve.`,
 
   'projects': `I've built several impactful projects:\n\n🏗️ **Project Alpha** — Enterprise API Architecture using Java, Spring Boot, PostgreSQL & Docker. Achieved 99.9% uptime with 45ms average response time.\n\n⚡ **Project Beta** — Real-Time Full Stack Platform with React, Node.js, Redis & WebSockets. Supports 500+ concurrent real-time users.\n\n🤖 **Project Gamma** — AI-Powered Automation Pipeline with Python, Django & Celery. Reduced report generation from 30 minutes to under 2 minutes.\n\nEach project taught me something new about building resilient, scalable systems.`,
 
   'technologies': `Here's my technical arsenal:\n\n**Languages:** Java, Python, JavaScript, TypeScript, SQL\n**Backend:** Spring Boot, Node.js, Django, REST APIs\n**Frontend:** React.js, HTML/CSS, Tailwind CSS\n**Databases:** PostgreSQL, MySQL, MongoDB, Redis\n**DevOps:** Docker, Git, CI/CD\n**AI/ML:** Prompt Engineering, LLMs, AI Integration\n\nI specialize in backend development and API architecture, but I'm equally comfortable building beautiful frontends.`,
 
-  'hire': `Absolutely! I'm currently open to new opportunities. Here's why you should consider me:\n\n✅ **Full Stack Expertise** — Backend-focused with strong frontend skills\n✅ **Production Experience** — Built and deployed real-world systems\n✅ **Quick Learner** — From Java basics to enterprise systems in record time\n✅ **Disciplined** — My athletics background brings unmatched work ethic\n✅ **AI-Ready** — Already exploring prompt engineering and LLM integration\n\nFeel free to reach out via LinkedIn or email. Let's build something amazing together! 🚀`,
+  'hire': `Absolutely! I'm currently open to new opportunities. Here's why you should consider me:\n\n✅ **Full Stack Expertise** — Backend-focused with strong frontend skills\n✅ **Production Experience** — Built and deployed real-world systems\n✅ **Quick Learner** — From Java basics to enterprise systems in record time\n✅ **Disciplined** — Bringing unmatched work ethic to every project\n✅ **AI-Ready** — Already exploring prompt engineering and LLM integration\n\nFeel free to reach out via LinkedIn or email. Let's build something amazing together! 🚀`,
 
-  'athletics': `I'm a competitive track & field athlete! In December 2021, I had an incredible athletics meet where I won:\n\n🥇 100m Sprint — 1st Place\n🥇 200m Sprint — 1st Place\n🥇 400m Sprint — 1st Place\n🥇 600m — 1st Place\n🥇 800m — 1st Place\n🥇 1500m — 1st Place\n🥇 4×100m Relay — 1st Place\n\nThat's 7 gold medals in a single event! The discipline, mental toughness, and competitive drive from athletics directly translates into my approach to software engineering.`,
-
-  'education': `I completed my **Bachelor's degree in Computer Science** from **Nadar Saraswathi College of Engineering and Technology** (2021-2025) with a GPA of **7.8**.\n\nKey areas of study:\n📚 Data Structures & Algorithms\n📚 Database Management Systems\n📚 System Design & Architecture\n📚 Software Engineering Principles\n\nBeyond academics, I was actively involved in building personal projects and competing in athletics.`,
+  'education': `I completed my **Bachelor's degree in Computer Science** from **Nadar Saraswathi College of Engineering and Technology** (2021-2025) with a GPA of **7.8**.\n\nKey areas of study:\n📚 Data Structures & Algorithms\n📚 Database Management Systems\n📚 System Design & Architecture\n📚 Software Engineering Principles\n\nBeyond academics, I was actively involved in building personal projects and honing my development skills.`,
 }
 
 function getAIResponse(question) {
   const q = question.toLowerCase()
-  if (q.includes('who') || q.includes('about') || q.includes('lisanth') && !q.includes('project') && !q.includes('tech') && !q.includes('hire') && !q.includes('athlet') && !q.includes('edu')) {
+  if (q.includes('who') || q.includes('about') || q.includes('lisanth') && !q.includes('project') && !q.includes('tech') && !q.includes('hire') && !q.includes('edu')) {
     return KNOWLEDGE_BASE['who is lisanth']
   }
   if (q.includes('project') || q.includes('built') || q.includes('work') || q.includes('portfolio')) {
@@ -40,20 +37,17 @@ function getAIResponse(question) {
   if (q.includes('hire') || q.includes('job') || q.includes('opportunity') || q.includes('work with') || q.includes('contact')) {
     return KNOWLEDGE_BASE['hire']
   }
-  if (q.includes('athlet') || q.includes('sport') || q.includes('run') || q.includes('race') || q.includes('sprint')) {
-    return KNOWLEDGE_BASE['athletics']
-  }
   if (q.includes('edu') || q.includes('college') || q.includes('university') || q.includes('degree') || q.includes('study')) {
     return KNOWLEDGE_BASE['education']
   }
-  return `Great question! I'm Lisanth's AI assistant. I can tell you about his projects, technical skills, athletics career, education, or hiring availability. Try asking something specific like "What technologies does he know?" or "Tell me about his athletics career"! 🤖`
+  return `Great question! I'm Lisanth's AI assistant. I can tell you about his projects, technical skills, education, or hiring availability. Try asking something specific like "What technologies does he know?" or "What is his education background?"! 🤖`
 }
 
 export default function AISection() {
   const [messages, setMessages] = useState([
     {
       role: 'ai',
-      content: "Hey! 👋 I'm the AI version of Lisanth. Ask me anything about his skills, projects, experience, or even his athletics career. I know it all!",
+      content: "Hey! 👋 I'm the AI version of Lisanth. Ask me anything about his skills, projects, experience, or education. I know it all!",
     },
   ])
   const [input, setInput] = useState('')
