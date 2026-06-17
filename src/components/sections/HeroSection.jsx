@@ -116,32 +116,34 @@ export default function HeroSection() {
       <div className="absolute inset-0 z-40 w-full max-w-7xl mx-auto pointer-events-none">
         <motion.button
           style={{ opacity: textOpacity }}
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 2, duration: 1, ease: [0.25, 1, 0.5, 1] }}
           onClick={handleToggleAudio}
-          aria-label={isAudioEnabled ? 'Mute audio' : 'Enable audio'}
-          className="absolute bottom-10 right-6 md:right-12 pointer-events-auto glass-light px-5 py-3 flex items-center gap-4 cursor-pointer hover:bg-white/10 transition-colors group rounded-full border-white/20 hover:border-white/40 shadow-lg hover:shadow-xl hover:scale-105 transform duration-300"
+          aria-label={isAudioEnabled ? 'Stop Video' : 'Play Video'}
+          className="absolute bottom-10 right-6 md:right-12 pointer-events-auto glass-light w-16 h-16 flex items-center justify-center cursor-pointer hover:bg-white/10 transition-all duration-300 group rounded-full border border-white/20 hover:border-white/40 shadow-[0_0_20px_rgba(255,255,255,0.1)] hover:shadow-[0_0_30px_rgba(255,255,255,0.2)] hover:scale-110 active:scale-95"
         >
-          <div className="flex items-end gap-[3px] h-4 w-5">
-            {[0, 1, 2, 3].map((j) => (
-              <motion.div
-                key={j}
-                animate={{
-                  height: isAudioEnabled
-                    ? [4, 14 + j * 2, 6, 12 - j, 4]
-                    : 4,
-                }}
-                transition={{ repeat: Infinity, duration: 1 + j * 0.2 }}
-                className={`w-[3px] rounded-full ${
-                  isAudioEnabled ? 'bg-accent-blue' : 'bg-text-dim'
-                }`}
-              />
-            ))}
+          {isAudioEnabled ? (
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" className="text-white transition-transform duration-300 group-hover:scale-110">
+              <rect x="6" y="6" width="12" height="12" rx="2" />
+            </svg>
+          ) : (
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" className="text-white ml-1 transition-transform duration-300 group-hover:scale-110">
+              <path d="M8 5v14l11-7z" />
+            </svg>
+          )}
+
+          {/* Tooltip / Label */}
+          <div className="absolute -top-12 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none whitespace-nowrap transform translate-y-2 group-hover:translate-y-0">
+            <span className="bg-zinc-900/90 backdrop-blur-md text-zinc-200 text-xs font-mono tracking-widest uppercase px-3 py-1.5 rounded-md border border-white/10 shadow-xl">
+              {isAudioEnabled ? 'Stop Intro' : 'Play Intro'}
+            </span>
           </div>
-          <span className="text-[11px] font-mono font-medium tracking-[0.2em] uppercase text-zinc-300 group-hover:text-white transition-colors">
-            {isAudioEnabled ? 'Stop Video' : 'Play Video'}
-          </span>
+          
+          {/* Pulse effect when playing */}
+          {isAudioEnabled && (
+            <div className="absolute inset-0 rounded-full border border-white/30 animate-ping" style={{ animationDuration: '2s' }} />
+          )}
         </motion.button>
       </div>
 

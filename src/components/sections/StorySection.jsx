@@ -12,21 +12,23 @@ export default function StorySection() {
   const sectionRef = useRef(null)
   const { scrollYProgress } = useScroll({
     target: sectionRef,
-    offset: ['start end', 'end start'],
+    offset: ['start start', 'end end'],
   })
 
   const bgY = useTransform(scrollYProgress, [0, 1], ['-10%', '10%'])
-  const textY1 = useTransform(scrollYProgress, [0.1, 0.4], [60, 0])
-  const textOp1 = useTransform(scrollYProgress, [0.1, 0.25, 0.4, 0.55], [0, 1, 1, 0])
-  const textY2 = useTransform(scrollYProgress, [0.4, 0.7], [60, 0])
-  const textOp2 = useTransform(scrollYProgress, [0.4, 0.55, 0.7, 0.85], [0, 1, 1, 0])
   const scaleProgress = useTransform(scrollYProgress, [0, 1], [1, 1.2])
+
+  const textY1 = useTransform(scrollYProgress, [0.0, 0.2, 0.35, 0.45], [40, 0, 0, -40])
+  const textOp1 = useTransform(scrollYProgress, [0.0, 0.2, 0.35, 0.45], [0, 1, 1, 0])
+  
+  const textY2 = useTransform(scrollYProgress, [0.55, 0.65, 0.85, 0.95], [40, 0, 0, -40])
+  const textOp2 = useTransform(scrollYProgress, [0.55, 0.65, 0.85, 0.95], [0, 1, 1, 0])
 
   return (
     <section
       ref={sectionRef}
       id={SECTIONS.STORY}
-      className="relative min-h-[200vh] overflow-hidden"
+      className="relative min-h-[250vh] overflow-hidden"
     >
       {/* Parallax background layers */}
       <div className="sticky top-0 h-screen overflow-hidden">
@@ -96,31 +98,27 @@ export default function StorySection() {
 
         {/* Text content - centered */}
         <div className="absolute inset-0 flex items-center justify-center px-6">
-          <div className="text-center max-w-3xl">
+          <div className="relative w-full max-w-3xl h-64 flex items-center justify-center">
             {/* First quote */}
-            <motion.div style={{ y: textY1, opacity: textOp1 }} className="absolute inset-0 flex items-center justify-center px-6">
-              <div className="text-center">
-                <p className="heading-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white/80 leading-tight mb-6">
-                  Every journey starts with{' '}
-                  <span className="text-gradient-vivid">curiosity</span>.
-                </p>
-                <p className="text-xl sm:text-2xl text-text-muted font-light">
-                  Mine started with <span className="text-accent-blue">technology</span>.
-                </p>
-              </div>
+            <motion.div style={{ y: textY1, opacity: textOp1 }} className="absolute w-full text-center">
+              <p className="heading-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white/80 leading-tight mb-6">
+                Every journey starts with{' '}
+                <span className="text-gradient-vivid">curiosity</span>.
+              </p>
+              <p className="text-xl sm:text-2xl text-text-muted font-light">
+                Mine started with <span className="text-accent-blue">technology</span>.
+              </p>
             </motion.div>
 
             {/* Second quote */}
-            <motion.div style={{ y: textY2, opacity: textOp2 }} className="absolute inset-0 flex items-center justify-center px-6">
-              <div className="text-center">
-                <p className="heading-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white/80 leading-tight mb-6">
-                  From the first line of{' '}
-                  <span className="text-gradient">code</span>
-                </p>
-                <p className="text-xl sm:text-2xl text-text-muted font-light">
-                  to building <span className="text-accent-cyan">digital experiences</span>.
-                </p>
-              </div>
+            <motion.div style={{ y: textY2, opacity: textOp2 }} className="absolute w-full text-center">
+              <p className="heading-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white/80 leading-tight mb-6">
+                From the first line of{' '}
+                <span className="text-gradient">code</span>
+              </p>
+              <p className="text-xl sm:text-2xl text-text-muted font-light">
+                to building <span className="text-accent-cyan">digital experiences</span>.
+              </p>
             </motion.div>
           </div>
         </div>
