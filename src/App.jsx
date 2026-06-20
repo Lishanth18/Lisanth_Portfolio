@@ -9,6 +9,7 @@ import useEasterEggs from './hooks/useEasterEggs'
 import LoadingScreen from './components/ui/LoadingScreen'
 import Navbar from './components/layout/Navbar'
 import HeroSection from './components/sections/HeroSection'
+import AboutSection from './components/sections/AboutSection'
 import TimelineSection from './components/sections/TimelineSection'
 import TechUniverseSection from './components/sections/TechUniverseSection'
 import ProjectsShowcase from './components/sections/ProjectsSection'
@@ -75,6 +76,9 @@ function AppContent() {
           <main className="relative z-10 w-full overflow-hidden bg-primary-950">
             {/* Scene 1: Cinematic Hero */}
             <HeroSection />
+
+            {/* Scene 2: About Me */}
+            <AboutSection />
 
             {/* Scene 3: Journey Timeline */}
             <TimelineSection />
